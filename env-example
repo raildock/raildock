@@ -1,0 +1,13 @@
+############################
+# General Setup
+############################
+
+### Application Path
+# Point to your application code, will be available at `/var/www`.
+
+APPLICATION=../
+
+### Data Path:
+# For all storage systems.
+
+DATA_SAVE_PATH=~/.raildock/data
