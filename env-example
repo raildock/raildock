@@ -11,3 +11,46 @@ APPLICATION=../
 # For all storage systems.
 
 DATA_SAVE_PATH=~/.raildock/data
+
+### Ruby version
+# Applies to the Workspace and Ruby containers
+# Accepted values: 2.4.1
+
+RUBY_VERSION=2.4.1
+
+############################
+# Containers Customization
+############################
+
+### WORKSPACE ##########################################################################################################
+
+WORKSPACE_INSTALL_WORKSPACE_SSH=false
+WORKSPACE_PUID=1000
+WORKSPACE_PGID=1000
+WORKSPACE_TIMEZONE=UTC
+WORKSPACE_SSH_PORT=2222
+
+### NGINX ##############################################################################################################
+
+NGINX_HOST_HTTP_PORT=80
+NGINX_HOST_HTTPS_PORT=443
+
+### POSTGRES ###########################################################################################################
+
+POSTGRES_DB=default
+POSTGRES_USER=default
+POSTGRES_PASSWORD=secret
+POSTGRES_PORT=5432
+
+############################
+# Miscellaneous
+############################
+
+# Replace with your Docker Host IP (will be appended to /etc/hosts)
+
+DOCKER_HOST_IP=10.0.75.1
+
+
+# Fix for windows users to make sure the application path works.
+
+COMPOSE_CONVERT_WINDOWS_PATHS=1

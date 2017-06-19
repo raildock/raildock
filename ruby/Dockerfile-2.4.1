@@ -1,0 +1,17 @@
+FROM ruby:2.4.1
+
+MAINTAINER Veselin Stoyanov <stoyanov.veseline@gmail.com>
+
+ENV RAILS_ROOT /var/www/app
+
+WORKDIR $RAILS_ROOT
+
+# Install Bundler
+RUN gem install bundler
+
+# Install Gems
+RUN bundle install
+
+EXPOSE 3000
+
+CMD bundle exec rails s
