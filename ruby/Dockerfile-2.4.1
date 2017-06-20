@@ -2,16 +2,30 @@ FROM ruby:2.4.1
 
 MAINTAINER Veselin Stoyanov <stoyanov.veseline@gmail.com>
 
-ENV RAILS_ROOT /var/www/app
+# Install dependencies
+RUN apt-get update -qq && apt-get install -y build-essential libpq-dev nodejs
 
+# Bundler configuration
+ENV BUNDLE_PATH /bundler
+ENV BUNDLE_HOME /bundler
+
+# Increase how many threads Bundler uses when installing
+ENV BUNDLE_JOBS 4
+
+# How many times Bundler will retry a gem download
+ENV BUNDLE_RETRY 3
+
+# Where Rubygems will look for gems, similar to BUNDLE_ equivalents.
+ENV GEM_HOME /bundler
+ENV GEM_PATH /bundler
+
+# Application code path
+ENV RAILS_ROOT /var/www/app
 WORKDIR $RAILS_ROOT
 
 # Install Bundler
 RUN gem install bundler
 
-# Install Gems
-RUN bundle install
-
 EXPOSE 3000
 
-CMD bundle exec rails s
+CMD bundle install && bundle exec rails s

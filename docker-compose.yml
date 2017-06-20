@@ -13,6 +13,8 @@ services:
     build:
       context: ./workspace
       dockerfile: "Dockerfile-${RUBY_VERSION}"
+    volumes:
+      - ${APPLICATION}:/var/www/app
 
   ### Ruby Container #######################################
   ruby:
@@ -21,6 +23,7 @@ services:
       dockerfile: "Dockerfile-${RUBY_VERSION}"
     volumes:
       - ${APPLICATION}:/var/www/app
+      - ruby:/bundler
     expose:
       - "3000"
     depends_on:
@@ -80,6 +83,8 @@ networks:
 ### Volumes Setup #############################################
 
 volumes:
+  ruby:
+    driver: "local"
   postgres:
     driver: "local"
   redis:
