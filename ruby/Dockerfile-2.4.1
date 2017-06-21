@@ -28,4 +28,6 @@ RUN gem install bundler
 
 EXPOSE 3000
 
-CMD bundle install && bundle exec rails s
+CMD bundle install && \
+    rm ./tmp/pids/server.pid && \
+    bundle exec rails s

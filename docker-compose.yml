@@ -15,6 +15,8 @@ services:
       dockerfile: "Dockerfile-${RUBY_VERSION}"
     volumes:
       - ${APPLICATION}:/var/www/app
+    networks:
+      - database
 
   ### Ruby Container #######################################
   ruby:
@@ -32,6 +34,7 @@ services:
       - "dockerhost:${DOCKER_HOST_IP}"
     networks:
       - backend
+      - database
 
   ### Nginx Server Container ##################################
   nginx:
@@ -49,10 +52,10 @@ services:
       - backend
 
   ### PostgreSQL Container ####################################
-  postgres:
-    build: ./postgres
+  postgresql:
+    build: ./postgresql
     volumes:
-      - ${DATA_SAVE_PATH}/postgres:/var/lib/postgresql/data
+      - ${DATA_SAVE_PATH}/postgresql:/var/lib/postgresql/data
     ports:
       - "${POSTGRES_PORT}:5432"
     environment:
@@ -60,7 +63,7 @@ services:
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
     networks:
-      - backend
+      - database
 
   ### Redis Container #########################################
   redis:
@@ -70,7 +73,7 @@ services:
     ports:
       - "6379:6379"
     networks:
-      - backend
+      - database
 
 ### Networks Setup ############################################
 
@@ -78,6 +81,8 @@ networks:
   frontend:
     driver: "bridge"
   backend:
+    driver: "bridge"
+  database:
     driver: "bridge"
 
 ### Volumes Setup #############################################
